@@ -19,7 +19,14 @@ public class AddTodoServletTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless"); // Run Chrome in headless mode
         options.addArguments("--disable-gpu"); // Disable GPU acceleration
-        System.setProperty("webdriver.chrome.driver", "chromedriver-win64/chromedriver.exe");
+
+        // Use relative path or environment variable for chromedriver
+        String chromedriverPath = System.getenv("CHROMEDRIVER_PATH");
+        if (chromedriverPath == null) {
+            chromedriverPath = "chromedriver-win64/chromedriver.exe";
+        }
+
+        System.setProperty("webdriver.chrome.driver", chromedriverPath);
         driver = new ChromeDriver(options);
     }
 
