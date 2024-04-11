@@ -7,27 +7,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.BeforeClass;
 
 public class AddTodoServletTest {
 
     private WebDriver driver;
 
-    @BeforeEach
+    @BeforeClass
     public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless"); // Run Chrome in headless mode
-        options.addArguments("--disable-gpu"); // Disable GPU acceleration
-
-        // Use relative path or environment variable for chromedriver
-        String chromedriverPath = System.getenv("CHROMEDRIVER_PATH");
-        if (chromedriverPath == null) {
-            chromedriverPath = "chromedriver-win64/chromedriver.exe";
-        }
-
-        System.setProperty("webdriver.chrome.driver", chromedriverPath);
-        driver = new ChromeDriver(options);
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
     }
 
     @AfterEach
