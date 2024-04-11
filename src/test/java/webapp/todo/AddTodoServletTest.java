@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,8 +16,11 @@ public class AddTodoServletTest {
 
     @BeforeEach
     public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless"); // Run Chrome in headless mode
+        options.addArguments("--disable-gpu"); // Disable GPU acceleration
         System.setProperty("webdriver.chrome.driver", "chromedriver-win64/chromedriver.exe");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
