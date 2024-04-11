@@ -24,8 +24,7 @@ public class AddTodoServletTest {
         String chromedriverPath = System.getenv("CHROMEDRIVER_PATH");
         if (chromedriverPath == null) {
             chromedriverPath = "chromedriver-win64/chromedriver.exe";
-        } else
-            chromedriverPath = "chromedriver-win64/chromedriver";
+        }
 
         System.setProperty("webdriver.chrome.driver", chromedriverPath);
         driver = new ChromeDriver(options);
