@@ -14,8 +14,8 @@ pipeline {
         registryCredential = 'ecr:us-east-1:awsiamuser'
         appRegistry = "247477386084.dkr.ecr.us-east-1.amazonaws.com/devopsproj-todo"
         vprofileRegistry = "https://247477386084.dkr.ecr.us-east-1.amazonaws.com/"
-        cluster = "vprofile"
-        service = "vprofileappsvc"
+        cluster = "todoapp-cluster"
+        service = "todoapp-service"
         slack_channel = "my-proj-cicd" 
         trivyReportPath = "${env.WORKSPACE}/trivy_report.json"
     }
@@ -80,13 +80,13 @@ pipeline {
           }
      }
 
-    // stage('Deploy to ecs') {
-    //       steps {
-    //     withAWS(credentials: 'awsiamuser', region: 'us-east-1') {
-    //       sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment'
-    //     }
-    //   }
-    //  }
+    stage('Deploy to ecs') {
+          steps {
+        withAWS(credentials: 'awsiamuser', region: 'us-east-1') {
+          sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment'
+        }
+      }
+     }
 
   }
     post {
@@ -97,4 +97,4 @@ pipeline {
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
-}
+}   
